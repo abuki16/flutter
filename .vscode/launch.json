@@ -1,28 +1,29 @@
-﻿{
+{
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Flutter: Run on Selected Device",
-      "request": "launch",
-      "type": "dart"
-    },
-    {
-      "name": "Flutter: Chrome (Web)",
+      "name": "Flutter: Run Current Open File",
       "request": "launch",
       "type": "dart",
-      "deviceId": "chrome"
+      "program": "${file}"
     },
     {
-      "name": "Flutter: Edge (Web)",
+      "name": "Flutter: Mini Market App",
       "request": "launch",
       "type": "dart",
-      "deviceId": "edge"
+      "program": "lib/mini_market_app.dart"
     },
     {
-      "name": "Flutter: Windows Desktop",
+      "name": "Flutter: BMI Calculator",
       "request": "launch",
       "type": "dart",
-      "deviceId": "windows"
+      "program": "lib/bmi_calculator.dart"
+    },
+    {
+      "name": "Flutter: Main App (Bottom Nav)",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart"
     }
   ]
 }
