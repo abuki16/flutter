@@ -1,0 +1,28 @@
+﻿{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Flutter: Run on Selected Device",
+      "request": "launch",
+      "type": "dart"
+    },
+    {
+      "name": "Flutter: Chrome (Web)",
+      "request": "launch",
+      "type": "dart",
+      "deviceId": "chrome"
+    },
+    {
+      "name": "Flutter: Edge (Web)",
+      "request": "launch",
+      "type": "dart",
+      "deviceId": "edge"
+    },
+    {
+      "name": "Flutter: Windows Desktop",
+      "request": "launch",
+      "type": "dart",
+      "deviceId": "windows"
+    }
+  ]
+}
