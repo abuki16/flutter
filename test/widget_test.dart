@@ -1,15 +1,9 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:abuki/bmi_calculator.dart';
-import 'package:abuki/main.dart';
-import 'package:abuki/mini_market_app.dart';
+import 'package:mini_market_app/bmi_calculator.dart';
+import 'package:mini_market_app/main.dart';
+import 'package:mini_market_app/data/market_store.dart';
+import 'package:mini_market_app/models/product.dart';
 
 void main() {
   testWidgets('BmiCalculatorApp renders properly', (WidgetTester tester) async {
@@ -20,11 +14,6 @@ void main() {
     expect(find.text('CALCULATE'), findsOneWidget);
   });
 
-  testWidgets('FolderlichApp renders properly', (WidgetTester tester) async {
-    await tester.pumpWidget(const FolderlichApp());
-    expect(find.text('Foldrlich'), findsOneWidget);
-    expect(find.text('Home'), findsOneWidget);
-  });
 
   testWidgets('BmiCalculatorApp calculates and displays result dialog on tap', (WidgetTester tester) async {
     await tester.pumpWidget(const BmiCalculatorApp());
@@ -48,19 +37,19 @@ void main() {
     expect(find.text('CALCULATE'), findsOneWidget);
   });
 
-  testWidgets('MiniMarketApp renders home screen with product catalog', (WidgetTester tester) async {
-    await tester.pumpWidget(const MiniMarketApp());
+  testWidgets('MyApp renders home screen with product catalog', (WidgetTester tester) async {
+    await tester.pumpWidget(const MyApp());
     expect(find.text('Mini Market'), findsOneWidget);
     expect(find.text('Phone X'), findsOneWidget);
     expect(find.text('Headphones'), findsOneWidget);
   });
 
-  testWidgets('MiniMarketApp renders empty state when no products exist', (WidgetTester tester) async {
+  testWidgets('MyApp renders empty state when no products exist', (WidgetTester tester) async {
     // Clear products to simulate empty state
     final backup = List<Product>.from(MarketStore.products);
     MarketStore.products.clear();
 
-    await tester.pumpWidget(const MiniMarketApp());
+    await tester.pumpWidget(const MyApp());
     expect(find.text('No products yet.\nTap + to add your first one.'), findsOneWidget);
     expect(find.byIcon(Icons.add), findsOneWidget);
 

@@ -11,19 +11,13 @@
       "name": "Flutter: Mini Market App",
       "request": "launch",
       "type": "dart",
-      "program": "lib/mini_market_app.dart"
+      "program": "lib/main.dart"
     },
     {
       "name": "Flutter: BMI Calculator",
       "request": "launch",
       "type": "dart",
       "program": "lib/bmi_calculator.dart"
-    },
-    {
-      "name": "Flutter: Main App (Bottom Nav)",
-      "request": "launch",
-      "type": "dart",
-      "program": "lib/main.dart"
     }
   ]
 }
