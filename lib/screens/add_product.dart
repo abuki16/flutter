@@ -1,7 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mini_market_app/cart_bloc/cart_bloc.dart';
+import 'package:mini_market_app/cart_bloc/cart_event.dart';
 import 'package:mini_market_app/data/categories.dart';
 import 'package:mini_market_app/data/market_store.dart';
+import 'package:mini_market_app/market_bloc/market_bloc.dart';
+import 'package:mini_market_app/market_bloc/market_event.dart';
 import 'package:mini_market_app/models/product.dart';
+
+void main() {
+  runApp(MultiBlocProvider(
+    providers: [
+      BlocProvider<MarketBloc>(
+        create: (context) => MarketBloc()..add(const LoadMarketEvent()),
+      ),
+      BlocProvider<CartBloc>(
+        create: (context) => CartBloc()..add(const LoadCartEvent()),
+      ),
+    ],
+    child: const MaterialApp(
+      title: 'Mini Market',
+      debugShowCheckedModeBanner: false,
+      home: AddProduct(),
+    ),
+  ));
+}
 
 class AddProduct extends StatefulWidget {
   final Product? product;
@@ -47,24 +70,30 @@ class _AddProductState extends State<AddProduct> {
     final description = _descriptionController.text.trim();
 
     if (widget.product != null) {
-      MarketStore.updateProduct(
-        widget.product!.copyWith(
-          title: title,
-          price: price,
-          category: _selectedCategory,
-          description: description,
-        ),
+      final updated = widget.product!.copyWith(
+        title: title,
+        price: price,
+        category: _selectedCategory,
+        description: description,
       );
+      try {
+        context.read<MarketBloc>().add(UpdateProductEvent(updated));
+      } catch (_) {
+        MarketStore.updateProduct(updated);
+      }
     } else {
-      MarketStore.addProduct(
-        Product(
-          id: MarketStore.newProductId(),
-          title: title,
-          price: price,
-          category: _selectedCategory,
-          description: description,
-        ),
+      final newProduct = Product(
+        id: MarketStore.newProductId(),
+        title: title,
+        price: price,
+        category: _selectedCategory,
+        description: description,
       );
+      try {
+        context.read<MarketBloc>().add(AddProductEvent(newProduct));
+      } catch (_) {
+        MarketStore.addProduct(newProduct);
+      }
     }
 
     Navigator.pop(context);

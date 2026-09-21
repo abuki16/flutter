@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mini_market_app/cart_bloc/cart_bloc.dart';
+import 'package:mini_market_app/cart_bloc/cart_event.dart';
+import 'package:mini_market_app/market_bloc/market_bloc.dart';
+import 'package:mini_market_app/market_bloc/market_event.dart';
 import 'package:mini_market_app/screens/home_page.dart';
 
 void main() {
@@ -10,11 +15,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      initialRoute: '/',
-      title: 'Mini Market',
-      debugShowCheckedModeBanner: false,
-      home: const HomePage(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<MarketBloc>(
+          create: (context) => MarketBloc()..add(const LoadMarketEvent()),
+        ),
+        BlocProvider<CartBloc>(
+          create: (context) => CartBloc()..add(const LoadCartEvent()),
+        ),
+      ],
+      child: const MaterialApp(
+        initialRoute: '/',
+        title: 'Mini Market',
+        debugShowCheckedModeBanner: false,
+        home: HomePage(),
+      ),
     );
   }
 }
