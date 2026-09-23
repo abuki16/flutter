@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mini_market_app/bloc/product_bloc/product_bloc.dart';
 import 'package:mini_market_app/cart_bloc/cart_bloc.dart';
 import 'package:mini_market_app/cart_bloc/cart_event.dart';
 import 'package:mini_market_app/market_bloc/market_bloc.dart';
@@ -17,6 +18,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider<ProductBloc>(
+          create: (context) => ProductBloc()..add(GetProductsEvent()),
+        ),
         BlocProvider<MarketBloc>(
           create: (context) => MarketBloc()..add(const LoadMarketEvent()),
         ),
